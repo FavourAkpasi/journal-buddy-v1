@@ -1,20 +1,18 @@
-import { useState } from 'react'
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./app-navigation/AppRoutes";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import usePostEffects from "./hooks/usePostEffects";
 
-import './App.css'
+const App = () => {
+	// usePostEffects();
 
-function App() {
-  const [count, setCount] = useState(0)
+	return (
+		<BrowserRouter>
+			<AppRoutes />
+			<ToastContainer theme="dark" />
+		</BrowserRouter>
+	);
+};
 
-  return (
-    <>
-      <h1>JournalBuddy</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-    </>
-  )
-}
-
-export default App
+export default App;
