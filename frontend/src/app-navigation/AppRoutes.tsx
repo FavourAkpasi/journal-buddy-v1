@@ -3,16 +3,20 @@ import { ROUTES } from "./routes";
 import Home from "../pages/Home/Home";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
+import ProtectedRoutes from "./ProtectedRoute";
 
 const AppRoutes = () => {
-    return (
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path={ROUTES.home} element={<Home />} />
-        <Route path={ROUTES.register} element={<Register />} />
-        <Route path={ROUTES.login} element={<Login />} />
+  return (
+    <Routes>
+     
+      <Route path={ROUTES.register} element={<Register />} />
+      <Route path={ROUTES.login} element={<Login />} />
 
-        {/* <Route path={ROUTES.home} element={<Home />} />
+      <Route element={<ProtectedRoutes />}>
+        <Route path="/" element={<Home />} />
+      </Route>
+
+      {/* <Route path={ROUTES.home} element={<Home />} />
         <Route path={ROUTES.about} element={<About />} />
         <Route path={ROUTES.contact} element={<Contact />} />
         <Route path={ROUTES.insights} element={<Insights />} />
@@ -26,8 +30,8 @@ const AppRoutes = () => {
           path={`${ROUTES.post_details}/:postId`}
           element={<PostDetails />}
         /> */}
-      </Routes>
-    );
-  };
-  
-  export default AppRoutes;
+    </Routes>
+  );
+};
+
+export default AppRoutes;

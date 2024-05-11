@@ -12,10 +12,13 @@ import { Container } from "../Home/style";
 import Logo from "../../components/Logo/Logo";
 import { FaApple, FaEnvelope, FaGooglePlay } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/baseUrl";
 
 const Login = () => {
   const [forgot, setForgot] = useState(false);
   const [email, setEmail] = useState("");
+ 
+
   const [password, setPassword] = useState("");
 
   const handleForgot = () => {
@@ -25,11 +28,11 @@ const Login = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post(`${BASE_URL}/auth/login`, {
         email,
         password,
       });
-      console.log(response.data);
+      localStorage.setItem('token', response.data.token); 
     } catch (error) {
       console.error(error);
     }
@@ -47,12 +50,14 @@ const Login = () => {
           $color={COLORS.mediumOrange}
           type="email"
           placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </AuthForm>
       <AuthButton
         $color={COLORS.white}
         $bgColor={COLORS.mediumOrange}
-        onClick={() => console.log("Reset Password")}
+        onClick={handleSubmit}
       >
         Reset Password
       </AuthButton>
@@ -92,7 +97,7 @@ const Login = () => {
       <AuthButton
         $color={COLORS.white}
         $bgColor={COLORS.mediumOrange}
-        onClick={() => console.log("Sign In")}
+        onClick={handleSubmit}
         type="submit"
       >
         <FaEnvelope />

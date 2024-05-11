@@ -1,3 +1,4 @@
+import { FormEvent, useState } from "react";
 import { FaApple, FaEnvelope, FaGooglePlay } from "react-icons/fa";
 import Logo from "../../components/Logo/Logo";
 import { COLORS } from "../../utils/colors";
@@ -9,15 +10,34 @@ import {
   AuthInput,
   PrivacyBox,
 } from "./style";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "../../config/baseUrl";
 
 
 const Register = () => {
   const [emailSignUp, setEmailSignUp] = useState(false);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
   const handleEmailSignUp = () => {
     setEmailSignUp(!emailSignUp);
+  };
+
+  const handleRegister = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${BASE_URL}/auth/register`, {
+        email,
+        password,
+        name,
+      });
+      console.log('Registration success:', response.data);
+    } catch (error: any) {
+      console.error('Registration error:', error.response.data);
+    }
   };
 
   const navigate = useNavigate();
@@ -26,27 +46,34 @@ const Register = () => {
       <Logo />
       <h1>Create an account.</h1>
       <p>Secure and Fun Journal Experience</p>
-      <AuthForm>
+      <AuthForm onSubmit={handleRegister}>
+        <AuthInput
+          $color={COLORS.mediumOrange}
+          type="name"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
         <AuthInput
           $color={COLORS.mediumOrange}
           type="email"
           placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <AuthInput
           $color={COLORS.mediumOrange}
           type="password"
           placeholder="Password"
-        />
-        <AuthInput
-          $color={COLORS.mediumOrange}
-          type="password"
-          placeholder="Confirm Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </AuthForm>
       <AuthButton
         $color={COLORS.white}
         $bgColor={COLORS.mediumOrange}
-        onClick={() => console.log("Create Account with Email")}
+        type="submit"
+        onClick={handleRegister}
       >
         Create Account
       </AuthButton>
@@ -55,7 +82,7 @@ const Register = () => {
       </p>
       <PrivacyBox>
         <p>
-          Have an account? <span>Log in</span>
+          Have an account? <span onClick={() => navigate("/login")}>Log in</span>
         </p>
       </PrivacyBox>
       <PrivacyBox>
