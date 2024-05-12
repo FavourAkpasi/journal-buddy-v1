@@ -3,20 +3,21 @@ import Entry from "../models/Entry.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/entries", async (req, res) => {
     try {
         const entries = await Entry.find();
         res.json(entries);
     } catch (error) {
+        console.error("Error fetching entries:", error);
         res.status(500).send(error.message);
     }
     });
 
-router.post("/", async (req, res) => {
+router.post("/new-entry", async (req, res) => {
     try {
         const entry = new Entry(req.body);
         await entry.save();
-        res.status(201).send("Entry created");
+        res.status(201).send("Journal entry Saved!");
     } catch (error) {
         res.status(400).send(error.message);
     }

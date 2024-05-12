@@ -10,16 +10,20 @@ import {
 import { COLORS } from "../../utils/colors";
 import { Container } from "../Home/style";
 import Logo from "../../components/Logo/Logo";
-import { FaApple, FaEnvelope, FaGooglePlay } from "react-icons/fa";
+import { FaApple, FaEnvelope, FaGooglePlay, FaSpinner } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../config/baseUrl";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [forgot, setForgot] = useState(false);
   const [email, setEmail] = useState("");
- 
-
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleForgot = () => {
     setForgot(!forgot);
@@ -28,16 +32,24 @@ const Login = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(`${BASE_URL}/auth/login`, {
         email,
         password,
-      });
-      localStorage.setItem('token', response.data.token); 
-    } catch (error) {
-      console.error(error);
+      });      
+      localStorage.setItem('token', response.data.token);
+      setLoading(false);
+      setEmail("");
+      setPassword("");
+      toast.success(response.data.message);
+      navigate("/");
+
+    } catch (error: any) {      
+      toast.error(error.response.data || "An error occurred");
+      setLoading(false);
     }
   };
-  const navigate = useNavigate();
+
 
   return forgot ? (
     <AuthContainer style={Container}>
@@ -59,7 +71,7 @@ const Login = () => {
         $bgColor={COLORS.mediumOrange}
         onClick={handleSubmit}
       >
-        Reset Password
+        {loading ? <FaSpinner /> : "Reset Password"}
       </AuthButton>
       <p>
         Remembered? <span onClick={handleForgot}>Sign In</span>
@@ -100,8 +112,8 @@ const Login = () => {
         onClick={handleSubmit}
         type="submit"
       >
-        <FaEnvelope />
-        Login with Email
+        {loading ? <FaSpinner /> : <><FaEnvelope /> Login with Email</> }
+        
       </AuthButton>
       <p>Even Faster</p>
       <AuthButton

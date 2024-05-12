@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 const entrySchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true,
+        required: false,
     },
-    content: {
+    entry: {
         type: String,
         required: true,
     },

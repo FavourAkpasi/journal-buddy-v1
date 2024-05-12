@@ -13,6 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../config/baseUrl";
+import { toast } from "react-toastify";
 
 
 const Register = () => {
@@ -34,9 +35,10 @@ const Register = () => {
         password,
         name,
       });
-      console.log('Registration success:', response.data);
+      toast.success(response.data.message);
+      navigate("/login");
     } catch (error: any) {
-      console.error('Registration error:', error.response.data);
+      toast.error(error.message || "An error occurred");
     }
   };
 

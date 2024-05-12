@@ -43,7 +43,7 @@ export const AuthForm = styled.form`
   margin: 2rem auto;
   gap: 1.5rem;
 `;
-export const AuthInput = styled.input<{ $color: string;}>`
+export const AuthInput = styled.input<{ $color: string; $icon?: any}>`
   padding: 1rem 2rem;
   background-color: ${COLORS.gray};
   border: none;
@@ -51,6 +51,12 @@ export const AuthInput = styled.input<{ $color: string;}>`
   font-size: 1.2rem;
   width: 75%;
   margin: 0 auto;
+  color: ${COLORS.black};
+  /* background-image: (${(props) => props.$icon});
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding-left: 3rem; */
+
   &:focus {
     outline: 0.1rem solid ${(props) => props.$color};
     color: ${(props) => props.$color};

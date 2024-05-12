@@ -6,5 +6,5 @@ export const ROUTES = {
 	login: "/login",
 	reset_password: "/reset-password",
 	entry_details: "/entry-details",
-    entry_list: "/entry-list",
+    entries: "/entries",
 };

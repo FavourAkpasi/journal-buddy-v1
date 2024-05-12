@@ -4,26 +4,24 @@ import Home from "../pages/Home/Home";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import ProtectedRoutes from "./ProtectedRoute";
+import Entries from "../pages/Entries/Entries";
+
+
 
 const AppRoutes = () => {
   return (
     <Routes>
-     
+
       <Route path={ROUTES.register} element={<Register />} />
       <Route path={ROUTES.login} element={<Login />} />
 
       <Route element={<ProtectedRoutes />}>
-        <Route path="/" element={<Home />} />
+        <Route path={ROUTES.home} element={<Home />} />
+        <Route path={ROUTES.entries} element={<Entries />} />
       </Route>
 
       {/* <Route path={ROUTES.home} element={<Home />} />
         <Route path={ROUTES.about} element={<About />} />
-        <Route path={ROUTES.contact} element={<Contact />} />
-        <Route path={ROUTES.insights} element={<Insights />} />
-        <Route path={ROUTES.blog} element={<Blog />} />
-       
-        <Route path={ROUTES.login} element={<Login />} />
-        <Route path={ROUTES.reset_password} element={<ResetPassword />} />
         <Route path={ROUTES.admin} element={<AdminDashboard />} />
         <Route path={ROUTES.support} element={<Support />} />
         <Route
