@@ -41,8 +41,11 @@ npm test
 ###  Built With
 
 React.js - The Frontend
+
 Node.js - The runtime environment
+
 Express.js - The web application framework
+
 OpenAI - The large language AI models
 
 ### Contributing
