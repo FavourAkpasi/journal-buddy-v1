@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
-const entrySchema = new mongoose.Schema(
+
+const entrySchema = new Schema(
   {
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     title: {
       type: String,
       required: false,
@@ -16,6 +23,6 @@ const entrySchema = new mongoose.Schema(
   }
 );
 
-const Entry = mongoose.model("Entry", entrySchema);
+const Entry = model("Entry", entrySchema);
 
 export default Entry;

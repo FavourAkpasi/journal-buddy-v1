@@ -31,6 +31,7 @@ const register = asyncHandler(async (req, res) => {
 
   res.status(201).json({
     id: user._id,
+    name: user.name,
     email: user.email,
     token: generateToken(user._id),
   });
@@ -83,6 +84,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   res.status(200).json({
     id: updatedUser._id,
     email: updatedUser.email,
+    name: updatedUser.name,
     token: generateToken(updatedUser._id),
   });
 });

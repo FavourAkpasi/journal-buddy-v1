@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import authRouter from "./routes/auth.js";
 import entryRouter from "./routes/entry.js";
 import chatRouter from "./routes/chat.js";
+import errorHandler from "./middleware/errorMiddleware.js";
 
 dotenv.config({ path: "../.env" });
 
@@ -35,6 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/entry", entryRouter);
 app.use("/api/chat", chatRouter);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

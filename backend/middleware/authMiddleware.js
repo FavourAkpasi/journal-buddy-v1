@@ -18,7 +18,8 @@ const requiresAuth = asyncHandler(async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
       // Get user from the token
-      req.user = await User.findById(decoded._id).select("-password");
+      req.user = await User.findById(decoded.id).select("-password");
+      
 
       next();
     } catch (error) {
@@ -34,4 +35,4 @@ const requiresAuth = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = { requiresAuth };
+export default requiresAuth;

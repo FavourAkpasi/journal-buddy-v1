@@ -1,5 +1,4 @@
-import { FormEvent, useState } from "react";
-import axios from "axios";
+import { FormEvent, useEffect, useState } from "react";
 import {
   AuthForm,
   AuthInput,
@@ -12,48 +11,39 @@ import { Container } from "../Home/style";
 import Logo from "../../components/Logo/Logo";
 import { FaApple, FaEnvelope, FaGooglePlay, FaSpinner } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../config/baseUrl";
-import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
+import { LoginType } from "../../type/auth";
+import useAuth from "../../Store/useAuth";
 
 const Login = () => {
+  const { loading, login, user } = useAuth((state) => state);
   const navigate = useNavigate();
 
   const [forgot, setForgot] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleForgot = () => {
     setForgot(!forgot);
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    try {
-      setLoading(true);
-      const response = await axios.post(`${BASE_URL}/auth/login`, {
-        email,
-        password,
-      });      
-      localStorage.setItem('token', response.data.token);
-      setLoading(false);
-      setEmail("");
-      setPassword("");
-      toast.success(response.data.message);
-      navigate("/");
-
-    } catch (error: any) {      
-      toast.error(error.response.data || "An error occurred");
-      setLoading(false);
-    }
+    const payload: LoginType = {
+      email,
+      password,
+    };
+    login(payload);
   };
 
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   return forgot ? (
     <AuthContainer style={Container}>
-
       <Logo />
       <h1>Reset Password</h1>
       <p>Secure and Fun Journal Experience</p>
@@ -67,9 +57,10 @@ const Login = () => {
         />
       </AuthForm>
       <AuthButton
+        disabled={loading || email === "" || password === ""}
         $color={COLORS.white}
         $bgColor={COLORS.mediumOrange}
-        onClick={handleSubmit}
+        onClick={()=>console.log("Reset Password")}
       >
         {loading ? <FaSpinner /> : "Reset Password"}
       </AuthButton>
@@ -88,7 +79,7 @@ const Login = () => {
       <Logo />
       <h1>Sign In.</h1>
       <p>Secure and Fun Journal Experience</p>
-      <AuthForm onSubmit={handleSubmit}>
+      <AuthForm onSubmit={handleLogin}>
         <AuthInput
           $color={COLORS.mediumOrange}
           type="email"
@@ -105,15 +96,17 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </AuthForm>
-      <span className="forgot-password" onClick={handleForgot}>Forgot password?</span>
+      <span className="forgot-password" onClick={handleForgot}>
+        Forgot password?
+      </span>
       <AuthButton
         $color={COLORS.white}
         $bgColor={COLORS.mediumOrange}
-        onClick={handleSubmit}
+        onClick={handleLogin}
         type="submit"
       >
-        {loading ? <FaSpinner /> : <><FaEnvelope /> Login with Email</> }
-        
+        {loading ? <FaSpinner />  : <FaEnvelope /> }
+        Login with Email
       </AuthButton>
       <p>Even Faster</p>
       <AuthButton

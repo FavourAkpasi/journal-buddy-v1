@@ -7,6 +7,7 @@ const addEntry = asyncHandler(async (req, res) => {
   const { title, text } = req.body;
 
   const entry = await Entry.create({
+    userId: req.user._id,
     title,
     text,
   });
@@ -15,14 +16,14 @@ const addEntry = asyncHandler(async (req, res) => {
 });
 
 const getEntries = asyncHandler(async (req, res) => {
-  const entries = await Entry.find();
+  const entries = await Entry.find({ userId: req.user._id});
   res.status(200).json(entries);
 });
 
 const updateEntry = asyncHandler(async (req, res) => {
   const entry = await Entry.findById(req.params.id);
 
-  const updatedEntry = await Post.findByIdAndUpdate(
+  const updatedEntry = await Entry.findByIdAndUpdate(
     req.params.id,
     {
       ...req.body,
