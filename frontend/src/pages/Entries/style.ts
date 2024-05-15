@@ -16,7 +16,6 @@ export const Entry = styled.div`
   width: 30%;
   height: 20rem;
   overflow: hidden;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
 
@@ -27,6 +26,13 @@ export const Entry = styled.div`
     width: 100%;
     display: flex;
     gap: 1rem;
+
+    & span {
+      cursor: pointer;
+      &:hover {
+        color: ${COLORS.black};
+      }
+    }
    
   }
   & p {

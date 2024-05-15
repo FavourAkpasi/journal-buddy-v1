@@ -1,5 +1,5 @@
-import { FormEvent, useState } from "react";
-import { FaApple, FaEnvelope, FaGooglePlay } from "react-icons/fa";
+import { FormEvent, useEffect, useState } from "react";
+import { FaApple, FaEnvelope, FaGooglePlay, FaSpinner } from "react-icons/fa";
 import Logo from "../../components/Logo/Logo";
 import { COLORS } from "../../utils/colors";
 import { Container } from "../Home/style";
@@ -11,14 +11,14 @@ import {
   PrivacyBox,
 } from "./style";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { BASE_URL } from "../../config/baseUrl";
-import { toast } from "react-toastify";
-
+import { RegisterType } from "../../type/auth";
+import useAuth from "../../Store/useAuth";
 
 const Register = () => {
-  const [emailSignUp, setEmailSignUp] = useState(false);
+  const {loading, register, user} = useAuth((state) => state);
+  const navigate = useNavigate();
 
+  const [emailSignUp, setEmailSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -29,20 +29,22 @@ const Register = () => {
 
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(`${BASE_URL}/auth/register`, {
-        email,
-        password,
-        name,
-      });
-      toast.success(response.data.message);
-      navigate("/login");
-    } catch (error: any) {
-      toast.error(error.message || "An error occurred");
-    }
+    const payload: RegisterType = {
+      name,
+      email,
+      password,
+    };
+    register(payload);
   };
+  
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
+
   return emailSignUp ? (
     <AuthContainer style={Container}>
       <Logo />
@@ -72,11 +74,13 @@ const Register = () => {
         />
       </AuthForm>
       <AuthButton
+        disabled={loading || email === "" || password === "" || name === ""}
         $color={COLORS.white}
         $bgColor={COLORS.mediumOrange}
         type="submit"
         onClick={handleRegister}
       >
+        {loading ? <FaSpinner /> : <FaEnvelope />}
         Create Account
       </AuthButton>
       <p>
@@ -84,7 +88,8 @@ const Register = () => {
       </p>
       <PrivacyBox>
         <p>
-          Have an account? <span onClick={() => navigate("/login")}>Log in</span>
+          Have an account?{" "}
+          <span onClick={() => navigate("/login")}>Log in</span>
         </p>
       </PrivacyBox>
       <PrivacyBox>
@@ -125,7 +130,7 @@ const Register = () => {
         Continue with Google
       </AuthButton>
       <p>
-        Have an account? <span onClick={() => navigate("/login")} >Log In</span>
+        Have an account? <span onClick={() => navigate("/login")}>Log In</span>
       </p>
       <PrivacyBox>
         <p>

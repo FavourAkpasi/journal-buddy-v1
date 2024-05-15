@@ -1,20 +1,28 @@
 import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
-const entrySchema = new mongoose.Schema({
+
+const entrySchema = new Schema(
+  {
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     title: {
-        type: String,
-        required: false,
+      type: String,
+      required: false,
     },
-    entry: {
-        type: String,
-        required: true,
+    text: {
+      type: String,
+      required: true,
     },
-    date: {
-        type: Date,
-        default: Date.now,
-    },
-    });
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const Entry = mongoose.model('Entry', entrySchema);
+const Entry = model("Entry", entrySchema);
 
 export default Entry;

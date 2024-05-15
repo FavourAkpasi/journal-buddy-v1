@@ -2,10 +2,15 @@ import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./app-navigation/AppRoutes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import usePostEffects from "./hooks/usePostEffects";
+import useEntry from "./Store/useEntry";
+import { useEffect } from "react";
 
 const App = () => {
-	// usePostEffects();
+	const { getAllEntries } = useEntry(state => state);
+
+	useEffect(() => {
+		getAllEntries();
+	}, []);
 
 	return (
 		<BrowserRouter>

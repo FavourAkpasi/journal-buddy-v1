@@ -1,17 +1,18 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import useAuth from "../Store/useAuth";
 
 const ProtectedRoutes = () => {
-  const token = localStorage.getItem("token");
+  const {user} = useAuth((state) => state);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
+    if (!user) {
       navigate("/login", { replace: true });
       console.log("No token found, redirecting to login");
       
     }
-  }, [token, navigate]);
+  }, [user, navigate]);
 
   return <Outlet />;
 };

@@ -13,6 +13,14 @@ export const HomeContainer = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+  & h2 {
+    margin: 0rem;
+  }
+  & .notice {
+    font-size: 1rem;
+    margin: 0;
+    color: ${COLORS.textGray};
+  }
 `;
 
 export const EntryInput = styled.textarea`
