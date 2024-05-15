@@ -21,7 +21,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.home} element={<Home />} />
         <Route path={ROUTES.entries} element={<Entries />} />
         <Route path={ROUTES.conversations} element={<Conversations />} />
-        <Route path={ROUTES.chat} element={<Chat />} />
+        <Route path={`${ROUTES.chat}/:entryId`} element={<Chat />} />
       </Route>
 
       {/* <Route path={ROUTES.home} element={<Home />} />

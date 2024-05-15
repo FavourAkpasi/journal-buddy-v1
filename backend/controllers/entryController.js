@@ -37,8 +37,8 @@ const updateEntry = asyncHandler(async (req, res) => {
 });
 
 const deleteEntry = asyncHandler(async (req, res) => {
-  const entry = await Entry.findById(req.params.id);
-  res.status(200).json(entry);
+  const entry = await Entry.findByIdAndDelete(req.params.id);
+  res.status(200).json('Entry deleted');
 });
 
 export { addEntry, getEntries, updateEntry, deleteEntry };

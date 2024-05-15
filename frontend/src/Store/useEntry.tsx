@@ -77,7 +77,7 @@ const useEntry = create<EntryState>((set) => ({
         payload,
         user?.token || ""
       );
-      const entryIndex = entries.findIndex((entry) => entry.id === payload.id);
+      const entryIndex = entries.findIndex((entry) => entry._id === payload.id);
       if (entryIndex === -1) {
         throw new Error("Entry not found");
       }
@@ -104,7 +104,7 @@ const useEntry = create<EntryState>((set) => ({
     try {
       set((state) => ({ deletingEntry: (state.deletingEntry = true) }));
       await entryServices.deleteEntry(entryId, user?.token || "");
-      const newEntries = entries.filter((entry) => entry.id !== entryId);
+      const newEntries = entries.filter((entry) => entry._id !== entryId);
       setEntries(newEntries);
       set((state) => ({ deletingEntry: (state.deletingEntry = false) }));
       set((state) => ({ entryDeleted: (state.entryDeleted = true) }));

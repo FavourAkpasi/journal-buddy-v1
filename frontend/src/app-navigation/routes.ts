@@ -6,5 +6,5 @@ export const ROUTES = {
 	entry_details: "/entry-details",
     entries: "/entries",
 	conversations: "/conversations",
-	chat: "/chat",
+	chat: "chat",
 };

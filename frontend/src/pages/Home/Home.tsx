@@ -6,10 +6,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import useEntry from "../../Store/useEntry";
 import { AddEntryType } from "../../type/entry";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../Store/useAuth";
 
 
 const Home = () => {
-  const {addingEntry, addEntry, resetEntryState} = useEntry((state) => state);
+  const {addingEntry, addEntry, entryAdded, resetEntryState} = useEntry((state) => state);
+  const { user } = useAuth((state) => state);
   const navigate = useNavigate();
   const [entry, setEntry] = useState("");
 
@@ -22,19 +24,19 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (addingEntry) {
+    if (entryAdded) {
       setEntry("");
       resetEntryState();
       navigate("/entries");
     }
-  }, [addingEntry, navigate, resetEntryState]);
+  }, [entryAdded, navigate, resetEntryState]);
   
   return (
     <>
       <Sidebar />
       <HomeContainer>
         <h1>New Entry</h1>
-        <EntryInput placeholder="Hi Favour, what is on your mind?" value={entry}
+        <EntryInput placeholder={`Hi ${user?.name}, what is on your mind?`} value={entry}
           onChange={(e) => setEntry(e.target.value)}/>
         <StyledButton
           disabled={addingEntry || entry===""}

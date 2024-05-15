@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { COLORS } from "../../utils/colors";
 
 export const ChatContainer = styled.div`
-  height: 80vh;
+  height: 70vh;
   width: 100%;
   padding: 1rem;
   overflow: auto;
@@ -34,10 +34,11 @@ export const ChatInput = styled.div`
   & textarea {
     width: 100%;
     resize: none;
-    padding: 1rem;
+    padding: 1rem 3rem 1rem 1rem;
     font-size: 1rem;
     background-color: inherit;
     border-radius: 1rem;
+    color: ${COLORS.textGray};
     &:active,
     &:focus {
       outline: 1px solid ${COLORS.black};
