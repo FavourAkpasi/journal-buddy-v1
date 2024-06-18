@@ -1,7 +1,8 @@
-import { FaBook, FaLightbulb, FaMagic, FaPlus, FaRocketchat, FaUserAstronaut } from "react-icons/fa";
+import { FaBook, FaLightbulb, FaMagic, FaPlus, FaUserAstronaut } from "react-icons/fa";
 import Logo from "../Logo/Logo";
 import { SidebarButton, SidebarContainer, SidebarItem } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { FaGear } from "react-icons/fa6";
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -31,8 +32,8 @@ const Sidebar = () => {
             </SidebarItem>
 
             <SidebarItem onClick={()=> navigate("/conversations")}>
-                <FaRocketchat/>
-                Conversations
+                <FaGear/>
+                Settings
             </SidebarItem >
 
             <SidebarButton onClick={()=> navigate("/")}>
