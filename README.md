@@ -21,14 +21,26 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Clone the repository to your local machine using `git clone https://github.com/FavourAkpasi/journal-buddy-v1.git`.
 2. Navigate to the project directory with `cd JournalBuddy`.
-3. Install the dependencies with `npm install`.
+3. Install the dependencies with `npm install-all`.
 4. Create a `.env` file in the root directory and add your OpenAI API key like so:
     ```
-    OPENAI_API_KEY=your_api_key_here
+    OPENAI_API_KEY = your_api_key_here
+    PORT = your_port_here
+    OPENAI_PROJECT_ID = your_openai_project_id_here
+    OPENAI_ORG_ID = your_openai_organization_here
+    MONGO_URI = your_mongo_uri_here
+    SECRET_KEY = your_secret_key_here
     ```
 5. Start the application with `npm start`.
 
-The application will start running at `http://localhost:3000`.
+The application will start running at `http://localhost:3000` or on the port provided in the .env file created in step 4.
+
+### Live Demo
+
+The application is hosted on `http://journalbuddy.netlify.app`.
+This is provided as a means to run a demo if you can not provide all the nessesary Enviroment variables for openAI and Mongo DB. 
+
+further details on the Application's Architecture, Domain, Use cases etc can be dound in the documentation.pdf file located in the documentation folder 
 
 ## Running the tests
 
