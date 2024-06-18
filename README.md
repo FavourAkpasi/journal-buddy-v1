@@ -19,7 +19,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installation
 
-1. Clone the repository to your local machine using `git clone https://github.com/yourusername/JournalBuddy.git`.
+1. Clone the repository to your local machine using `git clone https://github.com/FavourAkpasi/journal-buddy-v1.git`.
 2. Navigate to the project directory with `cd JournalBuddy`.
 3. Install the dependencies with `npm install`.
 4. Create a `.env` file in the root directory and add your OpenAI API key like so:
