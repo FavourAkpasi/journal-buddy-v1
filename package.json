@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
     "start-backend": "cd backend && npm start",
-    "start-frontend": "cd frontend && npm run dev"
+    "start-frontend": "cd frontend && npm run dev",
+    "install-all": "npm run install-backend && npm run install-frontend",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install"
   },
   "keywords": [],
   "author": "Favour Akpasi",
