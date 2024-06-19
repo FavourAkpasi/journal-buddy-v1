@@ -29,7 +29,7 @@ These instructions will get you a copy of the project up and running on your loc
     OPENAI_PROJECT_ID = your_openai_project_id_here
     OPENAI_ORG_ID = your_openai_organization_here
     MONGO_URI = your_mongo_uri_here
-    SECRET_KEY = your_secret_key_here
+    SECRET_KEY = your_jwt_secret_key_here
     ```
 5. Start the application with `npm start`.
 
