@@ -33,7 +33,7 @@ These instructions will get you a copy of the project up and running on your loc
     ```
 5. Start the application with `npm start`.
 
-The application will start running at `http://localhost:3000` or on the port provided in the .env file created in step 4.
+The application will start running at `https://journalbuddy.netlify.app` or on the port provided in the .env file created in step 4.
 
 ### Live Demo
 
